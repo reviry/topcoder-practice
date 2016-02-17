@@ -9,22 +9,20 @@ import java.nio.file.Paths;
 
 public class KiwiJuiceEasy {
   public static int[] thePouring(int[] capacities, int[] bottles,
-                          int[] fromId, int[] toId) {
+                                 int[] fromId, int[] toId) {
     for (int i = 0; i < fromId.length; i++) {
-      if (bottles[fromId[i]] + bottles[toId[i]] <= capacities[toId[i]]) {
-        bottles[toId[i]] += bottles[fromId[i]];
-        bottles[fromId[i]] = 0;
-      } else {
-        bottles[fromId[i]] -= capacities[toId[i]] - bottles[toId[i]];
-        bottles[toId[i]] = capacities[toId[i]];
-      }
+      int sum = bottles[fromId[i]] + bottles[toId[i]];
+      bottles[toId[i]] = Math.min(sum, capacities[toId[i]]);
+      bottles[fromId[i]] = sum - bottles[toId[i]];
     }
 
     return bottles;
   }
 
   public static void main(String[] args) {
-    try (BufferedReader br = Files.newBufferedReader(Paths.get("../testcase/KiwiJuiceEasy.txt"), StandardCharsets.UTF_8)) {
+    try (BufferedReader br = Files.newBufferedReader(
+          Paths.get("../testcase/KiwiJuiceEasy.txt"),
+          StandardCharsets.UTF_8)) {
       String line;
       String[] data;
       int[] capacities;
@@ -32,6 +30,7 @@ public class KiwiJuiceEasy {
       int[] fromId;
       int[] toId;
       int[] result;
+
       while ((line = br.readLine()) != null) {
         data = line.split(" ");
         capacities = new int[data.length];
