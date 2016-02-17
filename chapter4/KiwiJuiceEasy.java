@@ -2,6 +2,11 @@
  * SRM478 Div 2 Level 1
  */
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class KiwiJuiceEasy {
   public static int[] thePouring(int[] capacities, int[] bottles,
                           int[] fromId, int[] toId) {
@@ -19,13 +24,65 @@ public class KiwiJuiceEasy {
   }
 
   public static void main(String[] args) {
-    int[] capacities = {30, 20, 10};
-    int[] bottles = {10, 5, 5};
-    int[] fromId = {0, 1, 2};
-    int[] toId = {1, 2, 0};
-    int[] answer = thePouring(capacities, bottles, fromId, toId);
-    for (int i = 0; i < answer.length; i++) {
-      System.out.println(answer[i]);
+    try (BufferedReader br = Files.newBufferedReader(Paths.get("../testcase/KiwiJuiceEasy.txt"), StandardCharsets.UTF_8)) {
+      String line;
+      String[] data;
+      int[] capacities;
+      int[] bottles;
+      int[] fromId;
+      int[] toId;
+      int[] result;
+      while ((line = br.readLine()) != null) {
+        data = line.split(" ");
+        capacities = new int[data.length];
+        for (int i = 0; i < data.length; i++) {
+          capacities[i] = Integer.parseInt(data[i]);
+        }
+        data = br.readLine().split(" ");
+        bottles = new int[data.length];
+        for (int i = 0; i < data.length; i++) {
+          bottles[i] = Integer.parseInt(data[i]);
+        }
+        data = br.readLine().split(" ");
+        fromId = new int[data.length];
+        for (int i = 0; i < data.length; i++) {
+          fromId[i] = Integer.parseInt(data[i]);
+        }
+        data = br.readLine().split(" ");
+        toId = new int[data.length];
+        for (int i = 0; i < data.length; i++) {
+          toId[i] = Integer.parseInt(data[i]);
+        }
+        data = br.readLine().split(" ");
+        result = new int[data.length];
+        for (int i = 0; i < data.length; i++) {
+          result[i] = Integer.parseInt(data[i]);
+        }
+
+        long start = System.nanoTime();
+
+        int[] answer = thePouring(capacities, bottles, fromId, toId);
+
+        long end = System.nanoTime();
+
+        boolean flag = true;
+        for (int i = 0; i < answer.length; i++) {
+          if (answer[i] != result[i]) {
+            flag = false;
+          }
+        }
+
+        if (flag) {
+          System.out.println("PASS!!");
+        } else {
+          System.out.println("FAILURE!!");
+        }
+
+        System.out.println("Time: " + (end - start) / 1000000f + "[ms]");
+      }
+    }
+    catch (IOException e) {
+      e.printStackTrace();
     }
   }
 }
