@@ -37,9 +37,9 @@ public class InterestingParty {
       int count = 0;
       while ((line = br.readLine()) != null) {
         count++;
-        if (count == 0) {
+        if (count == 1) {
           first = line.split(" ");
-        } else if (count == 1) {
+        } else if (count == 2) {
           second = line.split(" ");
         } else {
           answer = Integer.parseInt(line);
