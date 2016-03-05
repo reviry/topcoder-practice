@@ -2,6 +2,8 @@
  SRM494 Div 2 Level 1
 """
 
+import time
+
 def best_invitation(first, second):
     answer = 0
     for i in xrange(len(first)):
@@ -30,9 +32,15 @@ if __name__ == '__main__':
             second = line[: -1].split(' ')
         if count == 3:
             answer = int(line)
+
+            start = time.time()
             result = best_invitation(first, second)
+            end = time.time()
+
             if result == answer:
                 print 'PASS!'
             else:
                 print 'FAILURE!'
+
+            print ("Time: {0}".format((end - start) * 1000)) + "[ms]"
             count = 0
