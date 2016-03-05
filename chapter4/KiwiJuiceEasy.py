@@ -2,6 +2,8 @@
 SRM478 Div 2 Level 1
 """
 
+import time
+
 def thePouring(capacities, bottles, fromId, toId):
     for i in xrange(len(fromId)):
         sum = bottles[fromId[i]] + bottles[toId[i]]
@@ -24,10 +26,16 @@ if __name__ == '__main__':
         elif count == 4:
             toId = tmp
         else:
-            result = tmp
-            answer = thePouring(capacities, bottles, fromId, toId)
-            if answer == result:
+            answer = tmp
+
+            start = time.time()
+            result = thePouring(capacities, bottles, fromId, toId)
+            end = time.time()
+
+            if result == answer:
                 print "PASS!!"
             else:
                 print "FALSE!!"
+
+            print ("Time: {0}".format((end - start) * 1000)) + "[ms]"
             count = 0
